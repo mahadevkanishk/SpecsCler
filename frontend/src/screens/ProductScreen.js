@@ -33,6 +33,7 @@ const ProductScreen = ({ match }) => {
               <Rating
                 value={product.rating}
                 text={`${product.numReviews} reviews`}
+                color='#009FE5'
               />
             </ListGroup.Item>
             <ListGroup.Item>Price: ${product.price}</ListGroup.Item>

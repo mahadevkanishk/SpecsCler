@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Image, Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -10,10 +10,17 @@ const Header = () => {
         variant='dark'
         expand='lg'
         collapseOnSelect
+        className='custom-navbar'
       >
         <Container>
           <Navbar.Brand as={Link} to='/'>
-            Clerspecs
+            {/* <Image
+              alt='logo'
+              fluid
+              src='/images/cler.png'
+              className='d-inline-block align-top navbar-logo'
+            /> */}
+            ClerSpecs
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>

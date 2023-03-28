@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: "1",
     name: "gucci classic",
     image: "/images/1.jpg",
     description:
@@ -13,7 +12,6 @@ const products = [
     numReviews: 4,
   },
   {
-    _id: "2",
     name: "GLOSSY RIVIERA GRAY / BLUELIGHT+",
     image: "/images/2.jpg",
     description:
@@ -26,7 +24,6 @@ const products = [
     numReviews: 4,
   },
   {
-    _id: "3",
     name: "MATTE BLACK / SILVEr ARMSTRONGS",
     image: "/images/3.jpg",
     description:
@@ -39,7 +36,6 @@ const products = [
     numReviews: 3,
   },
   {
-    _id: "4",
     name: "TOMAHAWK SNOW VISTA X1 SNOW GOGGLES ",
     image: "/images/4.jpg",
     description:
@@ -52,7 +48,6 @@ const products = [
     numReviews: 3,
   },
   {
-    _id: "5",
     name: "MATTE BLACK / SMOKE NEURALYZERS",
     image: "/images/5.jpg",
     description:
@@ -65,7 +60,6 @@ const products = [
     numReviews: 2,
   },
   {
-    _id: "6",
     name: "GLOSSY TORTOISE SHELL / SILVER RONDOS",
     image: "/images/6.jpg",
     description:
@@ -78,4 +72,4 @@ const products = [
     numReviews: 4,
   },
 ];
-module.exports = products;
+export default products;
