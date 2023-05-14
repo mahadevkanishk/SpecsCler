@@ -1,43 +1,66 @@
 import React from "react";
-import { Image, Navbar, Nav, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { logout } from "../actions/userActions";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <header>
       <Navbar
         style={{ backgroundColor: "#002E7D" }}
+        // bg='dark'
         variant='dark'
         expand='lg'
         collapseOnSelect
-        className='custom-navbar'
       >
         <Container>
-          <Navbar.Brand as={Link} to='/'>
-            {/* <Image
-              alt='logo'
-              fluid
-              src='/images/cler.png'
-              className='d-inline-block align-top navbar-logo'
-            /> */}
-            ClerSpecs
-          </Navbar.Brand>
+          <LinkContainer to='/'>
+            <Navbar.Brand>ClerSpecs</Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
-              <Nav.Link as={Link} to='/spectales'>
-                <i className='fas fa-glasses'></i>Spectales
-              </Nav.Link>
-              <Nav.Link as={Link} to='/goggles'>
-                <i className='fas fa-face-smile'></i>Goggles
-              </Nav.Link>
-
-              <Nav.Link as={Link} to='/cart'>
-                <i className='fa-solid fa-cart-shopping'></i>Cart
-              </Nav.Link>
-              <Nav.Link as={Link} to='/login'>
-                <i className='fas fa-user'></i>Sign In
-              </Nav.Link>
+              <LinkContainer to='/Spectales'>
+                <Nav.Link>
+                  <i className='fas fa-glasses'></i> Spectales
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/Googles'>
+                <Nav.Link>
+                  <i className='fas fa-face-smile'></i> Googles
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/cart'>
+                <Nav.Link>
+                  <i className='fas fa-shopping-cart'></i> Cart
+                </Nav.Link>
+              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id='username'>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to='/login'>
+                  <Nav.Link>
+                    <i className='fas fa-user'></i> Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -45,5 +68,4 @@ const Header = () => {
     </header>
   );
 };
-
 export default Header;
