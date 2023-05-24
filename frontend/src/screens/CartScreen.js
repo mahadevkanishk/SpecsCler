@@ -15,7 +15,7 @@ import { addToCart, removeFromCart } from "../actions/cartActions";
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
-  console.log(location.search);
+
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
   const dispatch = useDispatch();
