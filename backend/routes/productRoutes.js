@@ -4,18 +4,27 @@ const router = express.Router();
 import {
   getProducts,
   getProductById,
+  deleteProduct,
+  createProduct,
+  updateProduct,
 } from "../controllers/productController.js";
+
+import { protect, admin } from "../middleware/authMiddleware.js";
 
 //@desc fetch all products
 //@route Get /api/products
 //@access Public(MATLAB bahut sare routes mein token jata hai jisme kuch kuch user ko hi access therefore ye public hai)
 
-router.route("/").get(getProducts);
+router.route("/").get(getProducts).post(protect, admin, createProduct);
 
 //@desc fetch single products
 //@route Get /api/products
 //@access Public(MATLAB bahut sare routes mein token jata hai jisme kuch kuch user ko hi access therefore ye public hai)
 
-router.route("/:id").get(getProductById);
+router
+  .route("/:id")
+  .get(getProductById)
+  .delete(protect, admin, deleteProduct)
+  .put(protect, admin, updateProduct);
 
 export default router;
