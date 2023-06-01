@@ -7,6 +7,8 @@ import {
   deleteProduct,
   createProduct,
   updateProduct,
+  createProductReview,
+  getTopProducts,
 } from "../controllers/productController.js";
 
 import { protect, admin } from "../middleware/authMiddleware.js";
@@ -16,7 +18,8 @@ import { protect, admin } from "../middleware/authMiddleware.js";
 //@access Public(MATLAB bahut sare routes mein token jata hai jisme kuch kuch user ko hi access therefore ye public hai)
 
 router.route("/").get(getProducts).post(protect, admin, createProduct);
-
+router.route("/:id/reviews").post(protect, createProductReview);
+router.get("/top", getTopProducts);
 //@desc fetch single products
 //@route Get /api/products
 //@access Public(MATLAB bahut sare routes mein token jata hai jisme kuch kuch user ko hi access therefore ye public hai)
