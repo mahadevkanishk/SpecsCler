@@ -7,11 +7,13 @@ import {
   Col,
   Image,
   ListGroup,
-  Card,
   Button,
   Form,
+  ListGroupItem,
 } from "react-bootstrap";
 import Rating from "../components/Rating";
+import FormLensModal from "../components/FormLensModal";
+
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
@@ -23,8 +25,15 @@ import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
+  const [type, setType] = useState("1");
   const [rating, setRating] = useState(0);
+
   const [comment, setComment] = useState("");
+  const [ProductFD, setProductFD] = useState({
+    frame: "",
+    prescription: "",
+    lens: "",
+  });
 
   const dispatch = useDispatch();
 
@@ -53,6 +62,9 @@ const ProductScreen = ({ history, match }) => {
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
+    setProductFD({ ...ProductFD, frame: "", prescription: "", lens: "" });
+    setType("1");
+    console.log(ProductFD);
   };
 
   const submitHandler = (e) => {
@@ -67,7 +79,7 @@ const ProductScreen = ({ history, match }) => {
 
   return (
     <>
-      <Link className='btn btn-light my-3' to='/'>
+      <Link className='btn btn-light my-1' to='/'>
         Go Back
       </Link>
       {loading ? (
@@ -78,83 +90,56 @@ const ProductScreen = ({ history, match }) => {
         <>
           <Meta title={product.name} />
           <Row>
-            <Col md={6}>
+            <Col md={8}>
               <Image src={product.image} alt={product.name} fluid />
             </Col>
-            <Col md={3}>
+            <Col md={4}>
               <ListGroup variant='flush'>
-                <ListGroup.Item>
-                  <h3>{product.name}</h3>
+                <ListGroup.Item className='text-center'>
+                  <h3 className='my-2'>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Rating
-                    color='#009FE5'
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
+                  <Row>
+                    <Col>
+                      <Rating
+                        className='my-2'
+                        color='#009FE5'
+                        value={product.rating}
+                      />
+                    </Col>
+                    <Col> {product.numReviews} reviews </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Price:</Col>
+                    <Col>${product.price}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Status:</Col>
+                    <Col>
+                      {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item className=' text-start'>
+                  <p className='my-2'> Description: {product.description}</p>
+                </ListGroup.Item>
+                <ListGroupItem className='my-2'>
+                  <FormLensModal
+                    type={type}
+                    setType={setType}
+                    product={product}
+                    qty={qty}
+                    setQty={setQty}
+                    ProductFD={ProductFD}
+                    setProductFD={setProductFD}
+                    addToCartHandler={addToCartHandler}
                   />
-                </ListGroup.Item>
-                <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-                <ListGroup.Item>
-                  Description: {product.description}
-                </ListGroup.Item>
+                </ListGroupItem>
               </ListGroup>
-            </Col>
-            <Col md={3}>
-              <Card>
-                <ListGroup variant='flush'>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Price:</Col>
-                      <Col>
-                        <strong>${product.price}</strong>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Status:</Col>
-                      <Col>
-                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  {product.countInStock > 0 && (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Qty</Col>
-                        <Col>
-                          <Form.Control
-                            as='select'
-                            value={qty}
-                            onChange={(e) => setQty(e.target.value)}
-                          >
-                            {[...Array(product.countInStock).keys()].map(
-                              (x) => (
-                                <option key={x + 1} value={x + 1}>
-                                  {x + 1}
-                                </option>
-                              )
-                            )}
-                          </Form.Control>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  )}
-
-                  <ListGroup.Item>
-                    <Button
-                      onClick={addToCartHandler}
-                      className='btn-block'
-                      type='button'
-                      disabled={product.countInStock === 0}
-                    >
-                      Add To Cart
-                    </Button>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
             </Col>
           </Row>
           <Row>

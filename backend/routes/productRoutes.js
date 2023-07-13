@@ -9,6 +9,8 @@ import {
   updateProduct,
   createProductReview,
   getTopProducts,
+  getSpecsProducts,
+  getGogglesProducts,
 } from "../controllers/productController.js";
 
 import { protect, admin } from "../middleware/authMiddleware.js";
@@ -19,6 +21,8 @@ import { protect, admin } from "../middleware/authMiddleware.js";
 
 router.route("/").get(getProducts).post(protect, admin, createProduct);
 router.route("/:id/reviews").post(protect, createProductReview);
+router.get("/specs", getSpecsProducts);
+router.get("/goggles", getGogglesProducts);
 router.get("/top", getTopProducts);
 //@desc fetch single products
 //@route Get /api/products

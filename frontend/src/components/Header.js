@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <header>
       <Navbar
-        style={{ backgroundColor: "#002E7D" }}
+        style={{ backgroundColor: "#2F99D1" }}
         // bg='dark'
         variant='dark'
         expand='lg'
@@ -33,12 +33,12 @@ const Header = () => {
           <Navbar.Collapse id='basic-navbar-nav'>
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className='ms-auto'>
-              <LinkContainer to='/Spectales'>
+              <LinkContainer to='/specs'>
                 <Nav.Link>
                   <i className='fas fa-glasses'></i> Spectales
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/Googles'>
+              <LinkContainer to='/goggles'>
                 <Nav.Link>
                   <i className='fas fa-face-smile'></i> Googles
                 </Nav.Link>

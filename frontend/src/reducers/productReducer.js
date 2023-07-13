@@ -23,6 +23,12 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
+  PRODUCT_SPEC_LIST_REQUEST,
+  PRODUCT_SPEC_LIST_SUCCESS,
+  PRODUCT_SPEC_LIST_FAIL,
+  PRODUCT_GOGGLES_LIST_REQUEST,
+  PRODUCT_GOGGLES_LIST_SUCCESS,
+  PRODUCT_GOGGLES_LIST_FAIL,
 } from "../constants/productConstants";
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -37,6 +43,38 @@ export const productListReducer = (state = { products: [] }, action) => {
         page: action.payload.page,
       };
     case PRODUCT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const productSpecListReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_SPEC_LIST_REQUEST:
+      return { loading: true, product: [] };
+    case PRODUCT_SPEC_LIST_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload,
+      };
+    case PRODUCT_SPEC_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const productGogglesListReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_GOGGLES_LIST_REQUEST:
+      return { loading: true, product: [] };
+    case PRODUCT_GOGGLES_LIST_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload,
+      };
+    case PRODUCT_GOGGLES_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

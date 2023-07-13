@@ -5,7 +5,7 @@ import Product from "../models/productModel.js";
 // @route   GET /api/products
 // @access  Public (MATLAB bahut sare routes mein token jata hai jisme kuch kuch user ko hi access therefore ye public hai)
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 2;
+  const pageSize = 8;
   const page = Number(req.query.pageNumber) || 1;
 
   const keyword = req.query.keyword
@@ -148,6 +148,16 @@ const getTopProducts = asyncHandler(async (req, res) => {
 
   res.json(products);
 });
+const getSpecsProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({ category: "S" });
+
+  res.json(products);
+});
+const getGogglesProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({ category: "G" });
+
+  res.json(products);
+});
 
 export {
   getProducts,
@@ -157,4 +167,6 @@ export {
   updateProduct,
   createProductReview,
   getTopProducts,
+  getSpecsProducts,
+  getGogglesProducts,
 };

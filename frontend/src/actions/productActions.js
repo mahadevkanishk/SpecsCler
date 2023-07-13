@@ -21,6 +21,12 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
+  PRODUCT_SPEC_LIST_REQUEST,
+  PRODUCT_SPEC_LIST_SUCCESS,
+  PRODUCT_SPEC_LIST_FAIL,
+  PRODUCT_GOGGLES_LIST_REQUEST,
+  PRODUCT_GOGGLES_LIST_SUCCESS,
+  PRODUCT_GOGGLES_LIST_FAIL,
 } from "../constants/productConstants";
 
 export const listProducts =
@@ -47,6 +53,48 @@ export const listProducts =
       });
     }
   };
+
+export const speclistProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_SPEC_LIST_REQUEST });
+
+    const { data } = await axios.get(`/api/products/specs`);
+
+    dispatch({
+      type: PRODUCT_SPEC_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_SPEC_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const goggleslistProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_GOGGLES_LIST_REQUEST });
+
+    const { data } = await axios.get(`/api/products/goggles`);
+
+    dispatch({
+      type: PRODUCT_GOGGLES_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_GOGGLES_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
